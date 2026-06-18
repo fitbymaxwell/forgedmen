@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGED — Refined by Fire. Sharpened by Brotherhood.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cinzel:wght@400;600;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:   #1A1A1A;
+    --charcoal:#2B2B2B;
+    --ash:     #999;
+    --ember:   #C02020;
+    --ember-glow: #E03030;
+    --white:   #FFFFFF;
+    --offwhite: #F0EDE8;
+    --muted:   rgba(255,255,255,0.75);
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif:   'Cinzel', serif;
+    --font-body:    'Crimson Pro', serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    text-align: center;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 2rem;
+    background: linear-gradient(to bottom, rgba(26,26,26,0.97), transparent);
+    gap: 2rem;
+  }
+
+  nav ul {
+    margin-left: auto;
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    letter-spacing: 0.25em;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--ember); }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+  }
+  nav ul a {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  nav ul a:hover { color: var(--ember); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 0 1.5rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 55% at 50% 80%, rgba(192,32,32,0.22) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 50% 90%, rgba(192,32,32,0.35) 0%, transparent 60%),
+      #1A1A1A;
+  }
+
+  .embers {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .ember-particle {
+    position: absolute;
+    bottom: -10px;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--ember);
+    box-shadow: 0 0 6px 2px rgba(192,32,32,0.6);
+    animation: rise linear infinite;
+    opacity: 0;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { transform: translateY(-45vh) translateX(var(--drift)) scale(0.7); opacity: 0.8; }
+    100% { transform: translateY(-100vh) translateX(calc(var(--drift)*1.5)) scale(0.1); opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: fadeUp 1.4s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(7rem, 22vw, 18rem);
+    line-height: 0.88;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    text-shadow: 0 0 120px rgba(192,32,32,0.3), 0 2px 0 rgba(0,0,0,0.8);
+  }
+
+  .hero-rule {
+    width: 2px; height: 60px;
+    background: linear-gradient(to bottom, var(--ember), transparent);
+    margin: 2rem auto;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-body);
+    font-style: italic;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--white);
+  }
+
+  .hero-scripture {
+    margin-top: 1.2rem;
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+  }
+
+  .hero-cta {
+    margin-top: 3rem;
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--ember);
+    padding: 1rem 2.8rem;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    box-shadow: 0 0 30px rgba(192,32,32,0.4);
+  }
+  .hero-cta:hover {
+    background: var(--ember-glow);
+    transform: translateY(-2px);
+    box-shadow: 0 0 50px rgba(192,32,32,0.6);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    white-space: nowrap;
+  }
+  .hero-scroll span {
+    font-family: var(--font-serif);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+  }
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--offwhite), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.5; }
+    50%       { opacity: 1; }
+  }
+
+  /* ── SHARED SECTION STYLES ── */
+  section {
+    position: relative;
+    padding: 7rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .section-label {
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    color: var(--ember);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 9vw, 6rem);
+    letter-spacing: 0.1em;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 4rem;
+  }
+  .section-title em { color: var(--ember); font-style: normal; }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--ember), transparent);
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  /* ── PILLARS ── */
+  .pillars { background: var(--charcoal); }
+
+  .pillars-grid {
+    width: 100%;
+    max-width: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(153,153,153,0.25);
+  }
+
+  .pillar {
+    background: var(--charcoal);
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .pillar:hover { background: rgba(192,32,32,0.07); }
+
+  .pillar-number {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    color: rgba(192,32,32,0.2);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .pillar h3 {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+    margin-bottom: 1rem;
+  }
+
+  .pillar p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* ── MANIFESTO ── */
+  .manifesto { background: var(--black); }
+
+  .manifesto blockquote {
+    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .manifesto blockquote p {
+    font-style: italic;
+    font-size: clamp(1.3rem, 3vw, 2rem);
+    font-weight: 600;
+    line-height: 1.7;
+    color: var(--white);
+  }
+  .manifesto blockquote cite {
+    display: block;
+    margin-top: 2rem;
+    font-family: var(--font-serif);
+    font-size: 0.7rem;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ember);
+  }
+
+  /* ── EVENTS ── */
+  .events { background: var(--charcoal); }
+
+  .events-list {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid rgba(153,153,153,0.3);
+  }
+
+  .event-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 3rem 1rem;
+    border-bottom: 1px solid rgba(153,153,153,0.2);
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+  .event-item:hover { background: rgba(192,32,32,0.05); }
+
+  .event-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: rgba(192,32,32,0.35);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .event-tag {
+    font-family: var(--font-serif);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 0.5rem;
+  }
+  .event-name {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    margin-bottom: 0.8rem;
+  }
+  .event-desc {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 600px;
+  }
+
+  /* ── CONTENT PILLARS ── */
+  .content-pillars { background: var(--black); }
+
+  .cp-grid {
+    width: 100%;
+    max-width: 900px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5px;
+    background: rgba(153,153,153,0.25);
+  }
+
+  .cp-item {
+    background: var(--black);
+    padding: 3rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: background 0.3s;
+  }
+  .cp-item:hover { background: rgba(192,32,32,0.05); }
+
+  .cp-label {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.2em;
+    color: var(--ember);
+    margin-bottom: 0.5rem;
+  }
+  .cp-title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    letter-spacing: 0.08em;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+  .cp-desc {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  /* ── JOIN ── */
+  .join {
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+  .join-glow {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 800px; height: 400px;
+    background: radial-gradient(ellipse, rgba(192,32,32,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .join-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .join h2 {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    letter-spacing: 0.06em;
+    line-height: 0.95;
+    color: var(--white);
+    margin-bottom: 2rem;
+  }
+  .join h2 span { color: var(--ember); }
+  .join p {
+    font-style: italic;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    max-width: 550px;
+  }
+  .join-cta {
+    display: inline-block;
+    font-family: var(--font-serif);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--ember);
+    padding: 1.2rem 3.5rem;
+    text-decoration: none;
+    transition: all 0.3s;
+    box-shadow: 0 0 40px rgba(192,32,32,0.3);
+  }
+  .join-cta:hover {
+    background: var(--ember-glow);
+    box-shadow: 0 0 70px rgba(192,32,32,0.5);
+    transform: translateY(-2px);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem 1.5rem;
+    background: var(--charcoal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    border-top: 1px solid rgba(153,153,153,0.3);
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.3em;
+    color: var(--white);
+  }
+  .footer-logo span { color: var(--ember); }
+
+  footer p {
+    font-family: var(--font-serif);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--offwhite);
+  }
+
+  footer nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav ul { display: none; }
+    .pillars-grid { grid-template-columns: 1fr; }
+    .cp-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">F<span>O</span>RGED</a>
+  <ul>
+    <li><a href="#pillars">Pillars</a></li>
+    <li><a href="#events">Events</a></li>
+    <li><a href="#join">Enter</a></li>
+
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="embers" id="embers"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Non-Profit Brotherhood Organization</p>
+    <h1 class="hero-title">FORGED</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-tagline">Refined by fire. Sharpened by brotherhood.</p>
+    <p class="hero-scripture">Iron sharpens iron &mdash; Proverbs 27:17</p>
+    <a href="https://web.groupme.com/join_group/115495377/KOd9ZJlD" target="_blank" class="hero-cta">Enter the Forge</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="pillars" id="pillars">
+  <div class="divider"></div>
+  <span class="section-label">The Foundation</span>
+  <h2 class="section-title">Three <em>Pillars</em></h2>
+  <div class="pillars-grid">
+    <div class="pillar">
+      <div class="pillar-number">01</div>
+      <h3>Faith</h3>
+      <p>Sanctification through fire. The forge burns away what is not you — leaving only what God ordained.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-number">02</div>
+      <h3>Fitness</h3>
+      <p>Physical excellence as an act of stewardship and worship. The body God gave you is not yours to waste.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-number">03</div>
+      <h3>Fellowship</h3>
+      <p>Covenant men bound by more than friendship — by mission. Not networking. Brotherhood.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <blockquote>
+    <p>"I will put them into the fire and refine them, as one refines silver, and test them as gold is tested."</p>
+    <cite>Zechariah 13:9</cite>
+  </blockquote>
+</section>
+
+<!-- EVENTS -->
+<section class="events" id="events">
+  <div class="divider"></div>
+  <span class="section-label">Gatherings</span>
+  <h2 class="section-title">Where <em>Men Meet</em></h2>
+  <div class="events-list">
+    <div class="event-item">
+      <div class="event-num">01</div>
+      <p class="event-tag">Faith + Fellowship</p>
+      <h3 class="event-name">Beef + Bible</h3>
+      <p class="event-desc">Fire up the grill, open the Word. Brothers gather around steaks and Scripture — no fluff, no performance. Just men getting real with God and each other.</p>
+    </div>
+    <div class="event-item">
+      <div class="event-num">02</div>
+      <p class="event-tag">Fitness + Faith</p>
+      <h3 class="event-name">Dumbbells + Discipleship</h3>
+      <p class="event-desc">Sweat together, pray together. The same discipline it takes to show up at the gym is the same discipline it takes to show up in the Spirit. Train the body. Strengthen the soul.</p>
+    </div>
+    <div class="event-item">
+      <div class="event-num">03</div>
+      <p class="event-tag">Kingdom + Commerce</p>
+      <h3 class="event-name">Marketplace Ministry</h3>
+      <p class="event-desc">Kingdom men building Kingdom businesses. Marketplace strategy, faith-driven leadership, and the charge to be excellent in every room you enter.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENT PILLARS -->
+<section class="content-pillars" id="content">
+  <span class="section-label">The Content</span>
+  <h2 class="section-title">Four Channels of Iron</h2>
+  <div class="cp-grid">
+    <div class="cp-item">
+      <p class="cp-label">01</p>
+      <h3 class="cp-title">The Word</h3>
+      <p class="cp-desc">Weekly biblical devotionals on masculine identity, spiritual warfare, covenant, and calling. Short-form video, carousel, and long-form written content.</p>
+    </div>
+    <div class="cp-item">
+      <p class="cp-label">02</p>
+      <h3 class="cp-title">The Work</h3>
+      <p class="cp-desc">Training content, workout programming, performance nutrition — physical discipline framed as stewardship of the body God gave you.</p>
+    </div>
+    <div class="cp-item">
+      <p class="cp-label">03</p>
+      <h3 class="cp-title">The Brotherhood</h3>
+      <p class="cp-desc">Behind-the-scenes of gatherings, member spotlights, accountability stories, and real conversations about what it means to be a man of covenant.</p>
+    </div>
+    <div class="cp-item">
+      <p class="cp-label">04</p>
+      <h3 class="cp-title">The Marketplace</h3>
+      <p class="cp-desc">Kingdom-minded business and leadership. How men of God operate with excellence, integrity, and purpose in their professional spheres.</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOIN -->
+<section class="join" id="join">
+  <div class="join-glow"></div>
+  <div class="join-inner">
+    <span class="section-label">Enter the Forge</span>
+    <h2>The fire doesn't break <span>you.</span></h2>
+    <p>It makes you. Enter the forge. Leave different. Built in the fire. Bound by the Word.</p>
+    <a href="https://web.groupme.com/join_group/115495377/KOd9ZJlD" target="_blank" class="join-cta">Join the Brotherhood</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">F<span>O</span>RGED</div>
+  <p>Refined by fire &mdash; Sharpened by brotherhood &mdash; Prov. 27:17</p>
+
+</footer>
+
+<script>
+  const container = document.getElementById('embers');
+  function spawnEmber() {
+    const el = document.createElement('div');
+    el.className = 'ember-particle';
+    const left = 30 + Math.random() * 40;
+    const drift = (Math.random() - 0.5) * 120;
+    const dur = 4 + Math.random() * 5;
+    const delay = Math.random() * 2;
+    const size = 2 + Math.random() * 3;
+    el.style.cssText = `left:${left}%;--drift:${drift}px;animation-duration:${dur}s;animation-delay:${delay}s;width:${size}px;height:${size}px;`;
+    container.appendChild(el);
+    setTimeout(() => el.remove(), (dur + delay) * 1000);
+  }
+  setInterval(spawnEmber, 300);
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.pillar, .event-item, .cp-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
